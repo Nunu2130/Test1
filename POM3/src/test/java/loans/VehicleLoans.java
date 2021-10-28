@@ -1,6 +1,5 @@
 package loans;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
@@ -8,8 +7,6 @@ import org.testng.annotations.Test;
 
 public class VehicleLoans 
 {
-	private static final String URL = null;
-
 	@Test(groups ={"Smoke"})
 	public void VehicleNewCust()
 	{
