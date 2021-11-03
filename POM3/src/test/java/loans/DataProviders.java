@@ -85,21 +85,21 @@ public class DataProviders
 			data[7][1] = "Wabatho";
 			data[7][2] = 23;
 			data[7][3] = "M";
-			data[7][4] = "Is Vaccinated";
+			data[7][4] = "Vaccinated";
 			
 			//9th set
 			data[8][0] = "Mara";
 			data[8][1] = "Why";
 			data[8][2] = 19;
 			data[8][3] = "M";
-			data[8][4] = "Is Vaccinated";
+			data[8][4] = "Vaccinated";
 			
 			//9th set
 			data[9][0] = "I am";
 			data[9][1] = "Out of Names";
 			data[9][2] = 20;
 			data[9][3] = "F";
-			data[9][4] = "Is Vaccinated";
+			data[9][4] = "Vaccinated";
 			
 			
 			return data;
