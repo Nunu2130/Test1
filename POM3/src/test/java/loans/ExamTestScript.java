@@ -14,7 +14,7 @@ public class ExamTestScript
 	ReadExcel rExcel = new ReadExcel();
 	
 	
-	
+	//GIT practice , Playing games with Funeka :)
 	//Data providers
 			@Test(dataProvider = "examData")
 			public void ExamTestScriptTest(String Name , String Team, String Score)

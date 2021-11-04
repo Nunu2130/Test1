@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 public class HomeLoanFraudulentTest
 {
+	//GIT practice , Playing games with Funeka :)
 	//Data providers
 	@Test (dataProvider = "getData")
 	public void HomeLoan1FraudTest(String username , String lastname)
