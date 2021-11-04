@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 public class DataProviders 
 {
 	 
+	//GIT practice , Playing games with Funeka :)
 	
 		//Data providers
 		@Test(dataProvider = "getData")
@@ -53,8 +54,7 @@ public class DataProviders
 				
 			//4th set
 			data[3][0] = "Ntombi";
-			data[3][1] = "Aluta"
-					+ "";
+			data[3][1] = "Aluta";
 			data[3][2] = 20;
 			data[3][3] = "F";
 			data[3][4] = "Is Vaccinated";
