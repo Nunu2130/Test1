@@ -16,15 +16,17 @@ public class Homeloans2
 		}
 		
 		@Test(groups ={"Regression"})
-		public void ExistingCustomer2()
+		public void ExistingCustomer2() throws InterruptedException
 		{
 			System.out.println("Hi Mr Existing HomeLoans 2,Good to have you back");
+			Thread.sleep(1000);
 		}
 	
 		@Test(enabled =true)
-		public void HomeLoans2FraudTest()
+		public void HomeLoans2FraudTest() throws InterruptedException
 		{
 				System.out.println("Hi Mrs Existing Homeloans 2 ,This is a Fraud incident");
+				Thread.sleep(1000);
 		}
 		@BeforeTest
 		

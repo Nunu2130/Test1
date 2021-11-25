@@ -8,15 +8,17 @@ public class PersonalLoans1
 {
 	
 	@Test(groups ={"Smoke"})
-	public void PersNewCust()
+	public void PersNewCust() throws InterruptedException
 	{
 		System.out.println("Hi New Personal loans 1 Customer ,We welcome you to Personal Loans");
+		Thread.sleep(1000);
 	}
 	
 	@Test(groups ={"Regression"})
-	public void PersExCust2()
+	public void PersExCust2() throws InterruptedException
 	{
 		System.out.println("Hi Mrs Personal loans 1 Existing ,Good to have you back");
+		Thread.sleep(1000);
 	}
 	
 	@Test

@@ -9,15 +9,17 @@ public class HomeLoans1
 {
 		@Test(enabled=false)
 		//@Test(groups ={"Smoke"})
-		public void NewCustomer()
+		public void NewCustomer() throws InterruptedException
 		{
 			System.out.println("Hi New HomeLoans 1 Customer ,We welcome you to Homeloans");
+			Thread.sleep(1000);
 		}
 		
  		@Test(groups ={"Regression"})
-		public void ExistingCustomer()
+		public void ExistingCustomer() throws InterruptedException
 		{
 			System.out.println("Hi Mrs Existing HomeLoans 1  ,Good to have you back");
+			Thread.sleep(1000);
 		}
 		
  		@Test(enabled=false)

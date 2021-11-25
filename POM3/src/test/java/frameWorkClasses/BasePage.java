@@ -39,6 +39,8 @@ public class BasePage {
 
 			if (browser.equalsIgnoreCase("chrome")) {
 				// set the path to chrome
+				
+				
 				System.setProperty("webdriver.chrome.driver", pdriverdir + "chromedriver.exe");
 				// check if paramenter passed in chrome
 				driver = new ChromeDriver();
