@@ -15,7 +15,7 @@ public class ReadExcel extends BasePage {
 		// We are creating an object from the excel sheet data by calling a method that
 		// reads data from the excel stored locally in our system
 		// Get the directory where the excel file is placed
-		String excelDirectory = getDataConfigProperties(pProperty);
+		String excelDirectory = getDataConfigProperties("excelDataDir");
 		Object[][] arrObj = getExcelData(excelDirectory + pfilename, pSheet);
 
 		return arrObj;
@@ -31,7 +31,7 @@ public class ReadExcel extends BasePage {
 			 * video etc. You can also read character-stream data. But, f or reading streams
 			 * of characters, it is recommended to use FileReader class.
 			 */
-			FileInputStream fis = new FileInputStream(fileName);
+			FileInputStream fis = new FileInputStream("c:\\Temp\\TakealotProductList.xlsx");
 			/*
 			 * High level representation of a SpreadsheetML workbook. This is the first
 			 * object most users will construct whether they are reading or writing a

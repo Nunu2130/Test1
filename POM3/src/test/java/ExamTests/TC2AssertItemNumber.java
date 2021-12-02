@@ -2,6 +2,7 @@ package ExamTests;
 
  
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import Exam.ExamObj;
@@ -11,6 +12,13 @@ public class TC2AssertItemNumber {
 	
 	ExamObj ex = new ExamObj(); 
 	BasePage bp =  new BasePage(); 
+	
+	@BeforeTest
+	public void cookies() 
+	{
+		ex.clickGotIt();
+	}	
+	
 	@Test
 	public void GIVEN_ICLickFistItemInDailyDeals_AND_IADDtoCart_THEN_IAssertItemAddedToCart() throws InterruptedException
 	
@@ -21,7 +29,7 @@ public class TC2AssertItemNumber {
 			
 		//GIVEN
 			//I Click Daily Deals and select first Item
-			ex.clickGotIt();
+			//ex.clickGotIt();
 			Thread.sleep(1000);	
 			ex.captureMainBrand("Western Digital");	
 			Thread.sleep(1000);
@@ -42,6 +50,7 @@ public class TC2AssertItemNumber {
 		 	String successMsg = ex.CartConfirmMsg();
 			String expectedsuccessMsg = ("Added to cart");
 			System.out.println("");
+			
 			Assert.assertEquals(successMsg, expectedsuccessMsg);
 			System.out.println("Selected item has been Added to Cart");
 			System.out.println("");

@@ -149,6 +149,7 @@ public class BasePage {
 	public void cleanup() 
 	{
 		driver.close();
+		//driver.quit();
 		
 	}	
 	// create a method to EnterText

@@ -1,9 +1,11 @@
 package Exam;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.Select;
+
 
 import frameWorkClasses.BasePage;
 
@@ -15,7 +17,17 @@ public class ExamObj extends BasePage
 	public void captureMainBrand(String BrandNames)
 	{
 		EnterText(By.className("search-field"),BrandNames);
+		
 	}
+	
+	
+	//clear search field
+	public void clearSearchField() 
+	
+	
+		{
+		 driver.findElement(By.className("search-field")).clear();
+		}
 	
 	//Click Search Icon
 	public void clickSearchIcon()
@@ -37,7 +49,20 @@ public class ExamObj extends BasePage
 	//Clearing the Notification Message
 	public void clickGotIt()
 	{
-		clickElement(By.xpath("//button[contains(@class,'button cookies-banner-module_dismiss-button_24Z98')]"));
+		//Try ..Catch
+	
+		try 
+		{
+			if(driver.findElement(By.xpath("//button[contains(@class,'button cookies-banner-module_dismiss-button_24Z98')]")).isDisplayed());
+			clickElement(By.xpath("//button[contains(@class,'button cookies-banner-module_dismiss-button_24Z98')]"));
+			 
+			//System.out.println("Element Found");
+		
+		}
+		catch (NoSuchElementException e)
+		{System.out.println("Element Not present");}
+		
+		//clickElement(By.xpath("//button[contains(@class,'button cookies-banner-module_dismiss-button_24Z98')]"));
 	 
 	}
 	
@@ -129,7 +154,7 @@ public class ExamObj extends BasePage
 		    Set<String> allHandles = driver.getWindowHandles();
 		    allHandles.remove(allHandles.iterator().next());
 		    String lastHandle = allHandles.iterator().next();
-		    System.out.println("Last Window handle" +lastHandle);
+		   // System.out.println("Last Window handle" +lastHandle);
 		    driver.switchTo().window(lastHandle);
 		    clickElement(By.cssSelector(".button:nth-child(2)"));
 			
@@ -146,7 +171,17 @@ public class ExamObj extends BasePage
 		//Confirm that The Item has been added to Cart			
 		public String CartConfirmMsg()
 		{
-			return getElementText(By.xpath("//span[@class='shiitake-children']"));
+			return getElementText(By.xpath("//div[@class='cell auto drawer-title drawer-screen-module_drawer-title_3BX9x']"));
+			
+		}
+		
+		
+		//Close Slider 
+		
+		public void clickSlider()
+		{
+			 
+			clickElement(By.xpath("//a[@class='drawer-screen-module_icon-right_RiuRe drawer-screen-module_close_3bZkV']"));
 			
 		}
 		
@@ -171,9 +206,10 @@ public class ExamObj extends BasePage
 		{
 			 
 			selectDropDown(By.xpath("//select[@id='cart-item_undefined']"), ("2"));
-			Select sDropDown=new Select (getElement(By.xpath("//select[@id='cart-item_undefined']")));
-			sDropDown.selectByVisibleText("2");
+			Select sDropDown=new Select(getElement(By.xpath("//select[@id='cart-item_undefined']")));
+			sDropDown.selectByIndex(1);
 			return(sDropDown);
+			
 						
 		}
 		
@@ -186,18 +222,14 @@ public class ExamObj extends BasePage
 		}
 		
 		
-		//Close Browser
+		//clear search field
 				public void clear() 
 			{
 			 driver.findElement(By.id("_undefined")).clear();
 			}
 				
-		//Close Browser
-		public void close() 
-	{
-		driver.close();
-	}
-
+			
+	
 		public void clickDailyDeals() 
 		{
 			

@@ -1,78 +1,84 @@
 package ExamTests;
 
+ 
+
 import java.io.IOException;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import Exam.ExamObj;
 import frameWorkClasses.BasePage;
 import frameWorkClasses.ReadExcel;
 
 public class TC4ReadBrandsFromExcel {
-	
-	 
+
+	ExamObj ex = new ExamObj(); 
+	BasePage bp =  new BasePage(); 
 	ReadExcel rExcel = new ReadExcel(); 
-	BasePage bp =  new BasePage();	
-	//Data providers
+	//public static WebDriver driver;
 	
-	@Test(dataProvider = "productData")
-	public void readProductFile(String Brand , String Quantity)
-		{
-		//System.out.println("Takealot Product List");
-		System.out.println(Brand + " "+Quantity);
-	//	System.out.println(" ");
-		}
+	@BeforeTest
+	public void cookies() 
+	{
+		ex.clickGotIt();
+	}	
 	
 	
-	@DataProvider(name = "productData")
+	@Test(dataProvider = "TakealotProductList")
+	public void GIVEN_ICLickFistItemInDailyDeals_AND_IADDtoCart_THEN_IAssertItemAddedToCart(String Brand,String Quantity) throws InterruptedException
+	
+		//4 Click the first item 
+		//5 Add it to the cart
+		//6 Assert that “Added to cart” appears at the top of the pop up window
+	{
+		
+			
+		//GIVEN
+			//I Click Daily Deals and select first Item
+			//ex.clickGotIt();
+			Thread.sleep(1000);	
+			ex.captureMainBrand(Brand);	
+			Thread.sleep(1000);
+			ex.clickSearchIcon();
+			Thread.sleep(1000);
+				 
+		//WHEN
+			//I add to Cart
+			ex.clickFirstItem();
+			Thread.sleep(2000);
+			Thread.sleep(1000);
+			ex.clickAddItemToCart();
+			Thread.sleep(1000);
+			ex.clickSlider();
+//			ex.CartConfirmMsg();
+//						
+//		//THEN
+//			//I Assert that Item is added to cart   
+//		 	String successMsg = ex.CartConfirmMsg();
+//			String expectedsuccessMsg = ("Added to cart");
+//			System.out.println("");
+//			Assert.assertEquals(successMsg, expectedsuccessMsg);
+//			System.out.println("Selected item has been Added to Cart");
+//			System.out.println("");
+//			
+			//ex.close();
+			//bp.cleanup();
+		
+	}
+	
+	@DataProvider(name = "TakealotProductList")
 	public Object[][] getDataFromExcel() throws IOException
 	{
 	 
-	String excelDirectory = rExcel.getDataConfigProperties ("excelDataDir");
-	Object[][] arrObj = rExcel.getExcelData(excelDirectory+"TakealotProductList.xlsx","Sheet1");
-	
+	Object[][] arrObj = rExcel.getExcelData("C:\\Temp\\TakealotProductList.xlsx","Sheet1");
 	return arrObj;
-	
-	}
-	
-	
-	
-	/*@Test
-	public void GIVEN_ICLickDailyDeals_THEN_AssertNumberOfItems() throws InterruptedException
-	
-	//7 click the go to Cart button
-	//8 select 2 as the quantity 
-	//9 Assert that the cart value is displayed correctly
-
-
-
-	{
-			
-		//GIVEN
-		//I Click Daily Deals
-		ex.clickGotIt();	
-		ex.clickDailyDeals();
-		Thread.sleep(1000);
-			 
-		//WHEN
-		//I Select a brand 
-		ex.captureBrand("Western Digital");
-		ex.clickBrand();
-		 
-		//THEN 	
-		//I Assert Item count  
-		ex.ScrollUp();
-		ex.confirmItemCount();
-		String itemCount = ex.confirmItemCount();
-		System.out.println(""+itemCount);
 		
-		String expectedItemCount = ex.confirmZeroCount();
-		Thread.sleep(1000);
-		Assert.assertEquals(itemCount, expectedItemCount);
-		System.out.println("The Items found = " +itemCount+" : Items greater than Zero");
-		ex.cleanup();*/
-	
 	}
-	
-	
+	  
+}
 
