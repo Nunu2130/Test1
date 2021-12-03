@@ -58,8 +58,7 @@ public void GIVEN_IClickGoToCart_AND_Select2AsQuantity_THEN_AssertCartValue() th
 			int i = Integer.parseInt(unitPrice.replaceAll(",", "").substring(2));
 			System.out.println("Item Price = "+i);
 			
-					
-			//Quantity 
+			//Quantity // not right
 			int PostQua = 2;
 			System.out.println("Quantity = "+PostQua);
 			

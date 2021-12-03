@@ -44,6 +44,7 @@ public class TC1AddToCart
 		ex.clickAddItemToCart();
 		Thread.sleep(1000);
 		ex.CartConfirmMsg();
+		ex.clickSlider();
 					
 	//THEN
 		//I Assert that Item is added to cart   
@@ -53,7 +54,7 @@ public class TC1AddToCart
 		Assert.assertEquals(successMsg, expectedsuccessMsg);
 		System.out.println("Selected item has been Added to Cart");
 		System.out.println("");
-		ex.clickSlider();
+		
 		//ex.close();
 		bp.cleanup();
 	

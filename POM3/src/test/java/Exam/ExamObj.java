@@ -21,14 +21,6 @@ public class ExamObj extends BasePage
 	}
 	
 	
-	//clear search field
-	public void clearSearchField() 
-	
-	
-		{
-		 driver.findElement(By.className("search-field")).clear();
-		}
-	
 	//Click Search Icon
 	public void clickSearchIcon()
 	{
@@ -60,10 +52,9 @@ public class ExamObj extends BasePage
 		
 		}
 		catch (NoSuchElementException e)
-		{System.out.println("Element Not present");}
+		{}
 		
-		//clickElement(By.xpath("//button[contains(@class,'button cookies-banner-module_dismiss-button_24Z98')]"));
-	 
+		
 	}
 	
 
@@ -154,7 +145,7 @@ public class ExamObj extends BasePage
 		    Set<String> allHandles = driver.getWindowHandles();
 		    allHandles.remove(allHandles.iterator().next());
 		    String lastHandle = allHandles.iterator().next();
-		   // System.out.println("Last Window handle" +lastHandle);
+		    System.out.println("Last Window handle" +lastHandle);
 		    driver.switchTo().window(lastHandle);
 		    clickElement(By.cssSelector(".button:nth-child(2)"));
 			
@@ -209,9 +200,40 @@ public class ExamObj extends BasePage
 			Select sDropDown=new Select(getElement(By.xpath("//select[@id='cart-item_undefined']")));
 			sDropDown.selectByIndex(1);
 			return(sDropDown);
-			
-						
+								
 		}
+		
+		//Changing the Value to 2 
+				public void ExcelCartValue(String Quantity)
+				{
+					 
+					selectDropDown(By.xpath("//select[@id='cart-item_undefined']"), ("2"));
+					Select Quantity1=new Select(getElement(By.xpath("//select[@id='cart-item_undefined']")));
+					Quantity1.selectByValue(Quantity);
+					 
+										
+				}
+		
+
+		public void SwitchToNewTab() 
+		{
+//				Set<String> handles = driver.getWindowHandles(); //selenium will check how many windows are currently open, this will store the ID for both parent and child window
+//				Iterator<String> it = handles.iterator(); //using the it object you can access the ID
+//				String childWindowID = it.next();
+//				driver.switchTo().window(childWindowID); //switch to new window by passing the ID of the child window
+//		
+			  	   Set<String> allHandles = driver.getWindowHandles();
+				    allHandles.remove(allHandles.iterator().next());
+				    String nextHandle = allHandles.iterator().next();
+				    System.out.println("Last Window handle" +nextHandle);
+				    driver.switchTo().window(nextHandle);
+				    clickElement(By.cssSelector(".button:nth-child(2)"));
+					
+		
+		
+		
+		}
+			 
 		
 		//Confirming Pricing
 		public String ConfirmPricing()
@@ -237,6 +259,15 @@ public class ExamObj extends BasePage
 				 
 			
 		}
+		
+		public String InpectCartTotal() 
+		{
+			
+			return getElementText(By.xpath("//span[@class='currency plus currency-module_currency_29IIm']"));
+				 
+			
+		}
+		
 	
 	
 	
