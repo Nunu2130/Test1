@@ -1,10 +1,12 @@
+
 package ExamTests;
 
 import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import Exam.ExamObj;
+import examObj.ExamObj;
 import frameWorkClasses.BasePage;
 
 public class TC0SkipTest 
@@ -58,4 +60,10 @@ public class TC0SkipTest
 				//bp.cleanup();
 			
 			}
+	
+	@AfterTest
+	public void cleanup() 
+		{
+			bp.cleanup();
+		}	
 }

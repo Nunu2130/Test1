@@ -1,13 +1,17 @@
 package examination;
 
-import org.openqa.selenium.WebDriver;
+import java.io.IOException;
+
 import org.testng.Assert;
 import org.testng.SkipException;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import Exam.ExamObj;
+import examObj.ExamObj;
 import frameWorkClasses.BasePage;
+import frameWorkClasses.ReadExcel;
 
 public class ExamTesting extends BasePage
 
@@ -15,7 +19,7 @@ public class ExamTesting extends BasePage
 	
 		ExamObj ex = new ExamObj(); 
 		BasePage bp =  new BasePage();
-		public WebDriver driver;
+		ReadExcel rExcel = new ReadExcel(); 
 
 		
 		@BeforeTest
@@ -57,12 +61,11 @@ public class ExamTesting extends BasePage
 						throw new SkipException("Skipping the test case because brand is not found to have any daily deals" );	
 					}
 				
-					bp.cleanup();						
 		}
 		
 	//TC2 Add to Cart
 		@Test	
-		public void GIVEN_ICLickFistItemInDailyDeals_AND_IADDtoCart_THEN_IAssertItemAddedToCart() throws InterruptedException
+		public void GIVEN_ICLickFistItem_AND_IADDtoCart_THEN_IAssertItemAddedToCart() throws InterruptedException
 		
 		//4 Click the first item 
 		//5 Add it to the cart
@@ -70,9 +73,9 @@ public class ExamTesting extends BasePage
 	{
 			
 		//GIVEN
-			//I Click Daily Deals and select first Item
+			//I Click  select first Item
 			Thread.sleep(1000);
-			ex.captureMainBrand("Russel Hobbs");	
+			ex.captureMainBrand("Maxwell & Williams");	
 			ex.clickSearchIcon();
 		
 		//WHEN
@@ -95,62 +98,131 @@ public class ExamTesting extends BasePage
 			System.out.println("");
 			Assert.assertEquals(successMsg, expectedsuccessMsg);
 			System.out.println("Selected item has been Added to Cart");
-			//System.out.println("");
-		//	bp.cleanup();
-		
+				
 		}
 		
 		//TC3 Assert Cart VAlue (Change cart value to 2)
 		
 		@Test
 		public void GIVEN_IClickGoToCart_AND_Select2AsQuantity_THEN_AssertCartValue() throws InterruptedException 
+			{
+			//GIVEN
+					//I Click Go To Cart _AND_Select2AsQuantity_THEN_AssertCartValue
+				 	ex.captureMainBrand("Huawei");	
+					ex.clickSearchIcon();
+					//ex.clickBrand();
+					
+			//WHEN 
+					//I Select2 As Quantity
+					 
+					Thread.sleep(1000);
+					ex.ConfirmPricing();
+					Thread.sleep(1000);
+					System.out.println("");
+					ex.clickFirstItem();
+					Thread.sleep(2000);
+					 ex.clickAddItemToCart();
+					Thread.sleep(1000);
+					ex.clickGoToCart();
+					Thread.sleep(1000);
+					ex.changeCartValue();
+					Thread.sleep(1000);		
+					System.out.println("");
+					
+			//THEN
+					//I Assert that the CartValue  is displayed Correctly
+					
+					//get item price 
+					String Brand = ex.identifyItem();	
+					String unitPrice = ex.ConfirmPricing();
+					
+					//parse item price as integer
+					int i = Integer.parseInt(unitPrice.replaceAll(",", "").substring(2));
+					//System.out.println("Item Price = "+i);
+					
+					//Quantity // not right
+					int PostQua = 2;
+					//System.out.println("Quantity = "+PostQua);
+					
+					//compute the Cart total
+					int CartTotal  = i * PostQua;
+					//System.out.println("The Total Cart Amount = " +CartTotal);
+					int exCartTotal = CartTotal;
+					
+					//assert the correct cart total
+					Assert.assertEquals(CartTotal, exCartTotal);
+					System.out.println("          YOUR CART ITEMS            ");
+					System.out.println("");
+					System.out.println(PostQua+ " X "+Brand+" @ "+unitPrice);
+					System.out.println("");
+					System.out.println( "The Cart total of R "+CartTotal+" is Correct");
+					System.out.println("");
+			}		
+		
+		//TC4 Read Brands and Quantities from Excel
+					 
+		@Test(dataProvider = "TakealotProductList")
+		public void GIVEN_ICLickFistItemInDailyDeals_AND_IADDtoCart_THEN_IAssertItemAddedToCart(String Brand,String Quantity) throws InterruptedException
+			//
 		{
-		//GIVEN
-				//I Click Go To Cart _AND_Select2AsQuantity_THEN_AssertCartValue
+			//GIVEN
+				//I Click Daily Deals and select first Item
+			 
+				ex.captureMainBrand(Brand);	
 				Thread.sleep(1000);
-				ex.captureMainBrand("Western Digital");	
 				ex.clickSearchIcon();
-		//WHEN 
-				//I Select2 As Quantity
-				 
+				Thread.sleep(1000);
+					 
+			//WHEN
+				//I add each brand to Cart
 				ex.ConfirmPricing();
+				Thread.sleep(1000);
 				ex.clickFirstItem();
-				bp.cleanup();
-				//ex.SwitchToNewTab();
- 				ex.clickAddItemToCart();
+				Thread.sleep(1000);
+				ex.SwitchToNewTab();
+				Thread.sleep(1000);
+				ex.clickAddItemToCart();
 				Thread.sleep(1000);
 				ex.clickGoToCart();
-				ex.changeCartValue();
-				
-											
-		//THEN
-				//I Assert that the CartValue  is displayed Correctly
-				
-				//get item price 
-				String unitPrice = ex.ConfirmPricing();
-				
-				//parse item price as integer
-				int i = Integer.parseInt(unitPrice.replaceAll(",", "").substring(2));
-				System.out.println("Item Price = "+i);
-										
-				//Quantity 
-				int PostQua = 2;
-				System.out.println("Quantity = "+PostQua);
-				
-				//compute the Cart total
-				int CartTotal  = i * PostQua;
-				System.out.println("The Total Cart Amount = " +CartTotal);
-				int exCartTotal = CartTotal;
-				
-				//assert the correct cart total
-				Assert.assertEquals(CartTotal, exCartTotal);
-				System.out.println("");
-				//Print Total  Cart Value
-				System.out.println("The Cart total is Correct");
-				System.out.println("");
 				Thread.sleep(1000);
+				ex.ExcelCartValue(Quantity);
+				Thread.sleep(1000);
+							
+			//THEN
+				//I Assert cart  summary
 				
-				bp.cleanup();
+				String unitPrice = ex.ConfirmPricing();
+				int i = Integer.parseInt(unitPrice.replaceAll(",", "").substring(2));
+				
+				String Qua = Quantity;
+				int j = Integer.parseInt(Qua);
+				int CTotal = i * j;
+				
+				System.out.println("");
+				System.out.println(" YOUR CART ITEMS ");
+				System.out.println("");
+				System.out.println(Quantity+" X "+Brand+" @ "+unitPrice+" Per Item      Total = "+CTotal);
+				System.out.println("");
+				
+				String Totprice = ex.CartSummaryPricing();
+				int h = Integer.parseInt(Totprice.replaceAll(",", "").substring(2));
+				int TotTot = h*j;
+				Assert.assertEquals(TotTot,CTotal);
+					
 		}
 		
+			@DataProvider(name = "TakealotProductList")
+			public Object[][] getDataFromExcel() throws IOException
+			{
+			 
+			Object[][] arrObj = rExcel.getExcelData("C:\\Temp\\TakealotProductList.xlsx","Sheet1");
+			return arrObj;
+				
+			}
+		
+		@AfterTest
+		public void cleanup() 
+			{
+				bp.cleanup();
+			}	
 }

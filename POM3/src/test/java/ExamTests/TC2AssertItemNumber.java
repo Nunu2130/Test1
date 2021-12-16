@@ -2,10 +2,11 @@ package ExamTests;
 
  
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import Exam.ExamObj;
+import examObj.ExamObj;
 import frameWorkClasses.BasePage;
 
 public class TC2AssertItemNumber {
@@ -29,35 +30,46 @@ public class TC2AssertItemNumber {
 			
 		//GIVEN
 			//I Click Daily Deals and select first Item
-			//ex.clickGotIt();
-			Thread.sleep(1000);	
 			ex.captureMainBrand("Western Digital");	
 			Thread.sleep(1000);
+			
 			ex.clickSearchIcon();
 			Thread.sleep(1000);
+			
+			ex.clickBrand();
+			Thread.sleep(1000);
+			
 				 
 		//WHEN
 			//I add to Cart
+			ex.ConfirmPricing();
 			ex.clickFirstItem();
-			Thread.sleep(2000);
 			Thread.sleep(1000);
 			ex.clickAddItemToCart();
+			Thread.sleep(1000);
+			ex.identifyItem();
+			
 			Thread.sleep(1000);
 			ex.CartConfirmMsg();
 						
 		//THEN
 			//I Assert that Item is added to cart   
-		 	String successMsg = ex.CartConfirmMsg();
+			//String item = ex.identifyItem();
+			String successMsg = ex.CartConfirmMsg();
 			String expectedsuccessMsg = ("Added to cart");
 			System.out.println("");
-			
 			Assert.assertEquals(successMsg, expectedsuccessMsg);
-			System.out.println("Selected item has been Added to Cart");
+			
+			//String unitPrice = ex.ConfirmPricing();
+			System.out.println("Item is Added to Cart");
 			System.out.println("");
 			
-			//ex.close();
-			bp.cleanup();
-		
 	}
+	
+	@AfterTest
+	public void cleanup() 
+		{
+			bp.cleanup();
+		}	
 
 }

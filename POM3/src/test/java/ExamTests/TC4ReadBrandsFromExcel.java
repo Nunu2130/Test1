@@ -1,10 +1,14 @@
 package ExamTests;
 
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import Exam.ExamObj;
+
+import examObj.ExamObj;
 import frameWorkClasses.BasePage;
 import frameWorkClasses.ReadExcel;
 
@@ -35,29 +39,41 @@ public class TC4ReadBrandsFromExcel {
 			Thread.sleep(1000);
 				 
 		//WHEN
-			//I add to Cart
+			//I add each brand to Cart
+			ex.ConfirmPricing();
+			Thread.sleep(1000);
 			ex.clickFirstItem();
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			ex.SwitchToNewTab();
+			Thread.sleep(1000);
 			ex.clickAddItemToCart();
 			Thread.sleep(1000);
 			ex.clickGoToCart();
 			Thread.sleep(1000);
 			ex.ExcelCartValue(Quantity);
-			Thread.sleep(1000);		
-			//ex.clear();				
-//		//THEN
-//			//I Assert that Item is added to cart   
-//		 	String successMsg = ex.CartConfirmMsg();
-//			String expectedsuccessMsg = ("Added to cart");
-//			System.out.println("");
-//			Assert.assertEquals(successMsg, expectedsuccessMsg);
-//			System.out.println("Selected item has been Added to Cart");
-//			System.out.println("");
-//			
-			//ex.close();
-			//bp.cleanup();
-		
+			Thread.sleep(1000);
+						
+		//THEN
+			//I Assert cart  summary
+			
+			String unitPrice = ex.ConfirmPricing();
+			int i = Integer.parseInt(unitPrice.replaceAll(",", "").substring(2));
+			
+			String Qua = Quantity;
+			int j = Integer.parseInt(Qua);
+			int CTotal = i * j;
+			
+			System.out.println("");
+			System.out.println(" YOUR CART ITEMS ");
+			System.out.println("");
+			System.out.println(Quantity+" X "+Brand+" @ "+unitPrice+" Per Item      Total = "+CTotal);
+			System.out.println("");
+			
+			String Totprice = ex.CartSummaryPricing();
+			int h = Integer.parseInt(Totprice.replaceAll(",", "").substring(2));
+			int TotTot = h*j;
+			Assert.assertEquals(TotTot,CTotal);
+				
 	}
 	
 		@DataProvider(name = "TakealotProductList")
@@ -68,5 +84,11 @@ public class TC4ReadBrandsFromExcel {
 		return arrObj;
 			
 		}
-		  
+	
+		@AfterTest
+		public void cleanup() 
+			{
+				bp.cleanup();
+			}	
+		    
 }

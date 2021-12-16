@@ -2,10 +2,11 @@ package ExamTests;
 
 //import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import Exam.ExamObj;
+import examObj.ExamObj;
 import frameWorkClasses.BasePage;
 
 public class TC3AssertCartValue {
@@ -14,9 +15,11 @@ public class TC3AssertCartValue {
 	BasePage bp =  new BasePage();
 	
 	@BeforeTest
-	public void cookies() 
+	public void cookies() throws InterruptedException 
 	{
+		Thread.sleep(1000); 
 		ex.clickGotIt();
+		Thread.sleep(1000); 
 	}	
 	
 	@Test
@@ -24,12 +27,12 @@ public void GIVEN_IClickGoToCart_AND_Select2AsQuantity_THEN_AssertCartValue() th
 	{
 	//GIVEN
 			//I Click Go To Cart _AND_Select2AsQuantity_THEN_AssertCartValue
-			//ex.clickGotIt();
-			Thread.sleep(1000);	
-			ex.captureMainBrand("Western Digital");	
-			Thread.sleep(1000);
+		Thread.sleep(1000); 
+		ex.captureMainBrand("Huawei");	
+		Thread.sleep(1000);
 			ex.clickSearchIcon();
 			Thread.sleep(1000);
+			ex.clickBrand();
 			
 	//WHEN 
 			//I Select2 As Quantity
@@ -52,6 +55,7 @@ public void GIVEN_IClickGoToCart_AND_Select2AsQuantity_THEN_AssertCartValue() th
 			//I Assert that the CartValue  is displayed Correctly
 			
 			//get item price 
+			String Brand = "Western Digital";	
 			String unitPrice = ex.ConfirmPricing();
 			
 			//parse item price as integer
@@ -70,12 +74,17 @@ public void GIVEN_IClickGoToCart_AND_Select2AsQuantity_THEN_AssertCartValue() th
 			//assert the correct cart total
 			Assert.assertEquals(CartTotal, exCartTotal);
 			System.out.println("");
+			System.out.println(PostQua+" X "+Brand+" @ "+unitPrice+"      Total = "+CartTotal);
+			System.out.println("");
 			System.out.println("The Cart total is Correct");
 			System.out.println("");
 			
-			//close browser
-			bp.cleanup();
-
 	}
+	
+	@AfterTest
+	public void cleanup() 
+		{
+			bp.cleanup();
+		}	
 	 
 }

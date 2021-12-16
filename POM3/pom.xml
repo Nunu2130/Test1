@@ -279,9 +279,10 @@
 				</pluginManagement>
 			</build>
 		</profile>
-
+		
+	
 		<profile>
-			<id>Exam</id>
+			<id>examTesting</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -291,7 +292,7 @@
 						<configuration>
 							<reportsDirectory>${project.build.directory}/surefire-reports-${maven.build.timestamp}</reportsDirectory>
 							<suiteXmlFiles>
-								<suiteXmlFile>Exam.xml</suiteXmlFile>
+								<suiteXmlFile>examTesting.xml</suiteXmlFile>
 							</suiteXmlFiles>
 						</configuration>
 					</plugin>
